@@ -24,6 +24,8 @@ The entire process happens in the browser without uploading files to a server, e
 2. Wait for automatic conversion
 3. Download the resulting SVG file
 
+### License
+MIT License. See `LICENSE` for details.  
 </details>
 
 <details>
@@ -47,5 +49,8 @@ SVG — это векторный формат, который можно мас
 1. Перетащите PNG-файл в выделенную область
 2. Дождитесь автоматической конвертации
 3. Скачайте полученный SVG-файл
+
+### Лицензия
+Лицензия MIT. Подробности в файле `LICENSE`.
 
 </details>
