@@ -1,3 +1,5 @@
+![til](tutor.gif)
+
 # PNG to SVG Converter / Конвертер PNG в SVG
 
 <details>
