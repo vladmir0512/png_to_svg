@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PNG в SVG Конвертер</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        #drop-area {
+            width: 80%;
+            height: 300px;
+            border: 2px dashed #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-size: 20px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div id="drop-area">Перетащите PNG сюда</div>
+    <script>
+        document.getElementById('drop-area').addEventListener('drop', async (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            let file = event.dataTransfer.files[0];
+            if (!file || !file.name.endsWith('.png')) return alert('Только PNG файлы!');
+            
+            let reader = new FileReader();
+            reader.onload = async (e) => {
+                let img = new Image();
+                img.src = e.target.result;
+                img.onload = () => convertToSVG(img, file.name);
+            };
+            reader.readAsDataURL(file);
+        });
+        
+        async function convertToSVG(img, filename) {
+            let svgNS = 'http://www.w3.org/2000/svg';
+            let svg = document.createElementNS(svgNS, 'svg');
+            svg.setAttribute('width', '4000');
+            svg.setAttribute('height', '4000');
+            
+            let aspectRatio = img.width / img.height;
+            let newHeight = 4000;
+            let newWidth = newHeight * aspectRatio;
+            if (newWidth > 4000) {
+                newWidth = 4000;
+                newHeight = newWidth / aspectRatio;
+            }
+            
+            let image = document.createElementNS(svgNS, 'image');
+            image.setAttribute('href', img.src);
+            image.setAttribute('x', (4000 - newWidth) / 2);
+            image.setAttribute('y', (4000 - newHeight) / 2);
+            image.setAttribute('width', newWidth);
+            image.setAttribute('height', newHeight);
+            svg.appendChild(image);
+            
+            let svgData = new XMLSerializer().serializeToString(svg);
+            let blob = new Blob([svgData], { type: 'image/svg+xml' });
+            let link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = filename.replace('.png', '.svg');
+            link.click();
+        }
+        
+        document.getElementById('drop-area').addEventListener('dragover', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+        });
+    </script>
+</body>
+</html>
