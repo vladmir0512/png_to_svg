@@ -1,7 +1,7 @@
 # PNG to SVG Converter / Конвертер PNG в SVG
 
 <details>
-<summary>🇬🇧 English</summary>
+<summary>EN English</summary>
 
 ## Description
 
@@ -25,7 +25,7 @@ The entire process happens in the browser without uploading files to a server, e
 </details>
 
 <details>
-<summary>🇷🇷 Русский</summary>
+<summary>RU Русский</summary>
 
 ## Описание
 
